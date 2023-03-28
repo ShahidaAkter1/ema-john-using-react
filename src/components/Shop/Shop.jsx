@@ -16,9 +16,34 @@ const Shop = () => {
     },[])
 
     useEffect(()=>{
+        // console.log('products',products);
+
         const storedCart=getShoppingCart();
-        console.log(storedCart);
-    },[])
+        const savedCart =[];
+        // console.log(storedCart);
+
+        // step-1: get id of the addedProduct
+        for(const id in storedCart){
+            //step-2: get the product from products state by using id
+
+            // console.log(id);
+            const addedProduct = products.find(product => product.id === id)
+            if(addedProduct){
+                //step-3: get quantity of the product
+            const quantity = storedCart[id];
+            addedProduct.quantity = quantity;
+            // console.log(addedProduct);
+
+            //step-4: add the added product to the saved cart
+            savedCart.push(addedProduct);
+            }
+            // console.log("added product",addedProduct);
+
+            
+        }
+        //step-5: saved the cart
+        setCart(savedCart);
+    },[products])
 
     const handleAddToCart=(product) =>{
         // console.log(product);
